@@ -51,7 +51,20 @@ def get_modis(date, output='./'):
                 print(f"[+] {zip_file} -> Decomprimido\n")
             return
 
+def main(args):
+    parser = argparse.ArgumentParser(description = __doc__,
+                                     epilog = "Report bugs or suggestions to <cdavila@senamhi.gob.pe>",)
+    parser.add_argument('date', metavar='DATE', help="Date '2022-05-05'")
+    parser.add_argument('-o',
+                        '--output',
+                        type=str,
+                        help='Output directory',
+                        default=os.path.dirname(os.path.abspath(__file__)))
+    args = parser.parse_args()
+    get_modis(args.date, args.output)
+
 if __name__ == '__main__':
-    path = os.path.dirname(os.path.abspath(__file__))
-    date = datetime.today().strftime('%Y-%m-%d')
-    get_modis(date, path)
+    # path = os.path.dirname(os.path.abspath(__file__))
+    # date = datetime.today().strftime('%Y-%m-%d')
+    # get_modis(date, path)
+    sys.exit(main(sys.argv))
