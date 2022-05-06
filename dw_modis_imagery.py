@@ -11,6 +11,14 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
+def load_msg(msg,freq=0.3):
+    for i in range(4):
+        str_update  = '.'*i + '|'*(3-i) 
+        str_msg = f'\r{str_update} {msg}'
+        sys.stdout.write(str_msg)
+        time.sleep(freq)
+    return
+
 def get_modis(date, output='./'):
     chrome_options = webdriver.ChromeOptions()
     preferences = {"download.default_directory": output,
@@ -36,14 +44,7 @@ def get_modis(date, output='./'):
     zip_file = f"snapshot-{date}.zip"
     while True:
         if glob.glob(f'{zip_file}.crdownload'):
-            sys.stdout.write('\r||| DESCARGANDO')
-            time.sleep(0.3)
-            sys.stdout.write('\r.|| DESCARGANDO')
-            time.sleep(0.3)
-            sys.stdout.write('\r..| DESCARGANDO')
-            time.sleep(0.3)
-            sys.stdout.write('\r... DESCARGANDO')
-            time.sleep(0.3)
+            load_msg(f'Descargando -> [{zip_file}]')
         elif glob.glob(zip_file):
             print("\n\n-= Descarga completada =-")
             with zipfile.ZipFile(zip_file, 'r') as zfile:
