@@ -36,10 +36,19 @@ def get_modis(date, output='./'):
     zip_file = f"snapshot-{date}.zip"
     while True:
         if glob.glob(f'{zip_file}.crdownload'):
-            print('DESCARGANDO...')
+            sys.stdout.write('\r||| DESCARGANDO')
+            time.sleep(0.3)
+            sys.stdout.write('\r.|| DESCARGANDO')
+            time.sleep(0.3)
+            sys.stdout.write('\r..| DESCARGANDO')
+            time.sleep(0.3)
+            sys.stdout.write('\r... DESCARGANDO')
+            time.sleep(0.3)
         elif glob.glob(zip_file):
+            print("\n\n-= Descarga completada =-")
             with zipfile.ZipFile(zip_file, 'r') as zfile:
                 zfile.extractall('./')
+                print(f"[+] {zip_file} -> Decomprimido\n")
             return
 
 if __name__ == '__main__':
