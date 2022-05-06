@@ -17,13 +17,12 @@ def get_modis(date, output='./'):
                    "directory_upgrade": True,
                    "safebrowsing.enable": True}
     chrome_options.add_experimental_option("prefs", preferences)
-    # chrome_options.add_argument('--headless')
+    chrome_options.add_argument('--headless')
     chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument('--disable-dev-shm-usage')
     
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
     
-    #  https://wvs.earthdata.nasa.gov/?LAYERS=MODIS_Terra_CorrectedReflectance_TrueColor,Reference_Features_15m&CRS=EPSG:4326&TIME=2022-05-02&COORDINATES=-13.790639,-78.665789,-10.465943,-73.199342&FORMAT=image/png&WORLDFILE=true&AUTOSCALE=TRUE&RESOLUTION=500m
     link = f'https://wvs.earthdata.nasa.gov/?LAYERS=MODIS_Terra_CorrectedReflectance_TrueColor,Reference_Features_15m&CRS=EPSG:4326&TIME={date}&COORDINATES=-15.5,-78.5,-11.2,-72.1&FORMAT=image/png&WORLDFILE=true&AUTOSCALE=TRUE&RESOLUTION=250m'
     
     driver.get(link)
